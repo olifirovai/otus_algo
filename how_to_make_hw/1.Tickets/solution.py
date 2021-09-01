@@ -42,7 +42,7 @@ def make_tests(test_in: list, test_out: list) -> None:
 
 def lucky_ticket(data: str) -> str:
     n = data
-    
+
     return 'sd'
 
 
@@ -53,3 +53,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+['', 'pyperclip', 'PyRect', 'PyScreeze', 'PyTweening', 'pywin32', 'pywinauto', 'six', 'windows-curses']
