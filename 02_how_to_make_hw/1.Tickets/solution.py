@@ -27,7 +27,7 @@ def make_tests(test_in: list, test_out: list) -> None:
         start_time = dt.datetime.now()
 
         # here the main function
-        result = lucky_ticket(data)
+        result = sum([x ** 2 for x in lucky_tickets(data)])
 
         func_time = (dt.datetime.now() - start_time).total_seconds() * 1000
         output_text = f'{test_in[one_case][:-3]} run with {func_time} ms, ' \
@@ -40,19 +40,23 @@ def make_tests(test_in: list, test_out: list) -> None:
         print('----------------------------------------------------')
 
 
-# formula:
-#         9
-# Nn(k) = ∑ Nn–1(k – i)
-#         i=0
+def lucky_tickets(n: int, line=[1]):
+    new_line = []
+    if n > 1:
+        line = lucky_tickets(n - 1, line)
 
-def lucky_ticket(n: int) -> int:
-    if n <= 0:
-        return 0
-    array = [1] * 10 + [0] * (n * 9 - 9)
+    for i in range(9 * n + 1):
+        new = 0
+        for j in range(max(0, len(line) - 1 - i),
+                       min(len(line), 9 * n + 1 - i)):
+            new += line[j]
+        new_line.append(new)
 
-    for i in range(n - 1):
-        array = [sum(array[x::-1]) if x < 10 else sum(array[x:x - 10:-1]) for x in range(len(array))]
-    return sum([x ** 2 for x in array])
+    # return the last list which is consisted of sums for the half of the
+    # whole ticket
+    # ex. for n = 2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+    return new_line
+
 
 def main():
     test_in, test_out = find_test_cases()
