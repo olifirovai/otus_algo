@@ -1,6 +1,7 @@
 import datetime as dt
 import os
 
+from typing import Tuple
 from termcolor import colored
 
 
@@ -21,14 +22,14 @@ def find_test_cases():
 
 def make_tests(test_in: list, test_out: list) -> None:
     for one_case in range(len(test_in)):
-        answer = open(test_out[one_case], "r").read()
-        data = open(test_in[one_case], "r").read().strip()
+        with open(test_out[one_case], "r") as test_file:
+            answer = [int(line.rstrip('\n')) for line in test_file]
+        data = int(open(test_in[one_case], "r").read().strip())
 
         start_time = dt.datetime.now()
 
         # here the main function
-        result = lucky_ticket(data)
-
+        result = list(king_turn(data))
         func_time = (dt.datetime.now() - start_time).total_seconds() * 1000
         output_text = f'{test_in[one_case][:-3]} run with {func_time} ms, ' \
                       f'finished with {result == answer} result'
@@ -40,10 +41,26 @@ def make_tests(test_in: list, test_out: list) -> None:
         print('----------------------------------------------------')
 
 
-def lucky_ticket(data: str) -> str:
-    n = data
+def king_turn(position: int) -> Tuple[int, int]:
+    king = 1 << position
+    no_a = 0xfefefefefefefefe
+    no_h = 0x7f7f7f7f7f7f7f7f
 
-    return 'sd'
+    king_a = king & no_a
+    king_h = king & no_h
+    moves = ((king_a << 7) | (king << 8) | (king_h << 9) |
+             (king_a >> 1) | (king_h << 1) |
+             (king_a >> 9) | (king >> 8) | (king_h >> 7))
+
+    return count_bits(moves), moves
+
+
+def count_bits(moves):
+    count = 0
+    while moves > 0:
+        count += 1
+        moves &= moves - 1
+    return count
 
 
 def main():
@@ -53,4 +70,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-['', 'pyperclip', 'PyRect', 'PyScreeze', 'PyTweening', 'pywin32', 'pywinauto', 'six', 'windows-curses']
