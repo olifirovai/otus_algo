@@ -3,12 +3,14 @@ import os
 
 from termcolor import colored
 
+TEST_PATH = f'{os.getcwd()}\\tests'
+
 
 def find_test_cases():
     test_in = []
     test_out = []
 
-    for dirpath, dirnames, filenames in os.walk(os.getcwd()):
+    for dirpath, dirnames, filenames in os.walk(TEST_PATH):
         for filename in filenames:
             if filename.endswith('in'):
                 test_in.append(filename)
@@ -20,8 +22,8 @@ def find_test_cases():
 
 def find_lenght(test_in: list, test_out: list) -> None:
     for one_case in range(len(test_in)):
-        answer = open(test_out[one_case], "r").read()
-        data = open(test_in[one_case], "r").read().strip()
+        answer = open(f'{TEST_PATH}\\{test_out[one_case]}', 'r').read()
+        data = open(f'{TEST_PATH}\\{test_in[one_case]}', 'r').read().strip()
 
         start_time = dt.datetime.now()
 
