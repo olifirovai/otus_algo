@@ -51,19 +51,14 @@ def make_tests(test_in: list, test_out: list) -> None:
 def knight_turn(position: int) -> Tuple[int, int]:
     knight = 1 << position
     no_a_b = 0xfcfcfcfcfcfcfcfc
-    no_b = 0xfdfdfdfdfdfdfdfd
+    no_a = 0xfefefefefefefefe
+    no_h_g = 0x3f3f3f3f3f3f3f3f
     no_h = 0x7f7f7f7f7f7f7f7f
-    no_g = 0xbfbfbfbfbfbfbfbf
 
-    knight_a = knight & no_g & no_h
-    knight_b = knight & no_h
-    knight_g = knight & no_a
-    knight_h = knight & no_a & no_b
-
-    moves = ((knight_b << 17) | (knight_g << 15) |
-(knight_a << 10) |                              (knight_h << 6) |
-(knight_a >> 10) |                              (knight_h >> 6) |
-             (knight_b >> 17) | (knight_g >> 15))
+    moves = (no_h_g & (knight << 6 | knight >> 10) |
+             no_h & (knight << 15 | knight >> 17) |
+             no_a & (knight << 17 | knight >> 15) |
+             no_a_b & (knight << 10 | knight >> 6))
 
     return count_bits(moves), moves
 
