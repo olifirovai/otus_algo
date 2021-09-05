@@ -48,12 +48,13 @@ def king_turn(position: int) -> Tuple[int, int]:
     king = 1 << position
     no_a = 0xfefefefefefefefe
     no_h = 0x7f7f7f7f7f7f7f7f
+    whole_board = 0xffffffffffffffff
 
     king_a = king & no_a
     king_h = king & no_h
     moves = ((king_a << 7) | (king << 8) | (king_h << 9) |
              (king_a >> 1) | (king_h << 1) |
-             (king_a >> 9) | (king >> 8) | (king_h >> 7))
+             (king_a >> 9) | (king >> 8) | (king_h >> 7)) & whole_board
 
     return count_bits(moves), moves
 

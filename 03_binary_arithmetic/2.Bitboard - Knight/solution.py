@@ -41,9 +41,6 @@ def make_tests(test_in: list, test_out: list) -> None:
             print(colored(output_text, 'green'))
 
         else:
-            print(f'data = {data}')
-            print(f'answer = {answer}')
-            print(f'my result = {result}')
             print(colored(output_text, 'red'))
         print('----------------------------------------------------')
 

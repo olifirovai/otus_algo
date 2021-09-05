@@ -26,4 +26,4 @@ http://www.talkchess.com/forum3/viewtopic.php?t=39053
 
 ### Tests
 
-
+![](img.png)

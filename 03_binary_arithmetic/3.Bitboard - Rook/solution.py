@@ -1,5 +1,6 @@
 import datetime as dt
 import os
+from typing import Tuple
 
 from termcolor import colored
 
@@ -44,8 +45,34 @@ def make_tests(test_in: list, test_out: list) -> None:
         print('----------------------------------------------------')
 
 
-def rook_turn(n: int) -> int:
-    pass
+def rook_turn(position: int) -> Tuple[int, int]:
+    rook = 1 << position
+    no_a = 0xfefefefefefefefe
+    no_h = 0x7f7f7f7f7f7f7f7f
+    whole_board = 0xffffffffffffffff
+
+    left_move = (rook >> 1) & no_h
+    right_move = (rook << 1) & no_a
+    up_move = rook << 8
+    down_move = rook >> 8
+
+    for _ in range(7):
+        left_move = (left_move | left_move >> 1) & no_h
+        right_move = (right_move | right_move << 1) & no_a
+        up_move = up_move | up_move << 8
+        down_move = down_move | down_move >> 8
+
+    moves = (down_move | up_move | left_move | right_move) & whole_board
+
+    return count_bits(moves), moves
+
+
+def count_bits(moves):
+    count = 0
+    while moves > 0:
+        count += 1
+        moves &= moves - 1
+    return count
 
 
 def main():
