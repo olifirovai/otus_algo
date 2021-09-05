@@ -1,5 +1,6 @@
 import datetime as dt
 import os
+from typing import Tuple
 
 from termcolor import colored
 
@@ -44,8 +45,34 @@ def make_tests(test_in: list, test_out: list) -> None:
         print('----------------------------------------------------')
 
 
-def bishop_turn(n: int) -> int:
-    pass
+def bishop_turn(position: int) -> Tuple[int, int]:
+    bishop = 1 << position
+    no_a = 0xfefefefefefefefe
+    no_h = 0x7f7f7f7f7f7f7f7f
+    whole_board = 0xffffffffffffffff
+
+    up_left_move = (bishop << 7) & no_h
+    up_right_move = (bishop << 9) & no_a
+    down_left_move = (bishop >> 9) & no_h
+    down_right_move = (bishop >> 7) & no_a
+
+    for _ in range(7):
+        up_left_move = (up_left_move | up_left_move << 7) & no_h
+        up_right_move = (up_right_move | up_right_move << 9) & no_a
+        down_left_move = (down_left_move | down_left_move >> 9) & no_h
+        down_right_move = (down_right_move | down_right_move >> 7) & no_a
+
+    moves = (up_left_move | up_right_move | down_left_move | down_right_move) & whole_board
+
+    return count_bits(moves), moves
+
+
+def count_bits(moves):
+    count = 0
+    while moves > 0:
+        count += 1
+        moves &= moves - 1
+    return count
 
 
 def main():
