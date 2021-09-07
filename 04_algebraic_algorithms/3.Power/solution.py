@@ -1,6 +1,5 @@
 import datetime as dt
 import os
-from typing import Tuple
 
 from termcolor import colored
 
@@ -24,15 +23,16 @@ def find_test_cases():
 
 def make_tests(test_in: list, test_out: list) -> None:
     for one_case in range(len(test_in)):
-        with open(f'{TEST_PATH}\\{test_out[one_case]}', "r") as test_file:
-            answer = [int(line.rstrip('\n')) for line in test_file]
-        data = int(
-            open(f'{TEST_PATH}\\{test_in[one_case]}', "r").read().strip())
+        answer = float(
+            open(f'{TEST_PATH}\\{test_out[one_case]}', "r").read().strip())
+        with open(f'{TEST_PATH}\\{test_in[one_case]}', "r") as test_file:
+            data = [float(line.rstrip('\n')) for line in test_file]
 
         start_time = dt.datetime.now()
 
         # here the main function
-        result = list(king_turn(data))
+        result = power_iteraction(data)
+
         func_time = (dt.datetime.now() - start_time).total_seconds() * 1000
         output_text = f'{test_in[one_case][:-3]} run with {func_time} ms, ' \
                       f'finished with {result == answer} result'
@@ -40,37 +40,42 @@ def make_tests(test_in: list, test_out: list) -> None:
             print(colored(output_text, 'green'))
 
         else:
+            print(f'data {data}')
+            print(f'my result {result}')
+            print(f'answer {answer}')
             print(colored(output_text, 'red'))
         print('----------------------------------------------------')
 
 
-def king_turn(position: int) -> Tuple[int, int]:
-    king = 1 << position
-    no_a = 0xfefefefefefefefe
-    no_h = 0x7f7f7f7f7f7f7f7f
-    whole_board = 0xffffffffffffffff
-
-    king_a = king & no_a
-    king_h = king & no_h
-    moves = ((king_a << 7) | (king << 8) | (king_h << 9) |
-             (king_a >> 1) | (king_h << 1) |
-             (king_a >> 9) | (king >> 8) | (king_h >> 7)) & whole_board
-
-    return count_bits(moves), moves
+def power(data: list) -> float:
+    number = data[0]
+    power = data[1]
+    if power == 0:
+        return 1.0
+    return round(number ** power, 11)
 
 
-def count_bits(moves):
-    count = 0
-    while moves > 0:
-        count += 1
-        moves &= moves - 1
-    return count
+def power_iteraction(data: list) -> float:
+    number = data[0]
+    power = data[1]
+    if power == 0:
+        return 1.0
 
+    result = number
+    for _ in range(1, int(power)):
+        result = result * number
+    return round(result, 11)
+
+def power(data: list) -> float:
+    number = data[0]
+    power = data[1]
+    if power == 0:
+        return 1.0
+    return round(number ** power, 11)
 
 def main():
-    print(king_turn(4))
-    # test_in, test_out = find_test_cases()
-    # make_tests(test_in, test_out)
+    test_in, test_out = find_test_cases()
+    make_tests(test_in, test_out)
 
 
 if __name__ == '__main__':
