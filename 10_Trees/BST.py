@@ -33,9 +33,16 @@ class Node:
 
     def remove(self, remove_value):
         if self.value == remove_value:
-            if self.right is not None and self.left is not None:
-                pass
+            if self.right and self.left:
+                last_right_in_left = self.left
+                while last_right_in_left.right:
+                    last_right_in_left = last_right_in_left.right
+
+                last_right_in_left.right, last_right_in_left.left, self.right, self.left = self.right, self.left, None, last_right_in_left.left
+
             elif self.left is None:
+                temp_right = self.right
+            elif self.right is None:
                 temp_right = self.right
             else:
                 temp_left = self.left
