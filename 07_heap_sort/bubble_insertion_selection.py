@@ -40,7 +40,7 @@ def make_tests(test_in: list, test_out: list) -> None:
         start_time = dt.datetime.now()
 
         # here the main function
-        result = bubble_sort(n, array)
+        result = insertion_sort(n, array)
 
         func_time = (dt.datetime.now() - start_time).total_seconds() * 1000
         output_text = f'{test_in[one_case][:-3]} run with {func_time} ms, ' \
@@ -66,14 +66,24 @@ def bubble_sort(n: int, array: list) -> list:
 
 
 def selection_sort(n: int, array: list) -> list:
+    for i in range(n):
+        min_index = i
+        for j in range(i + 1, n):
+            if array[min_index] > array[j]:
+                min_index = j
+        array[i], array[min_index] = array[min_index], array[i]
     return array
 
 
 def insertion_sort(n: int, array: list) -> list:
-    return array
+    for i in range(1, n):
+        j = i - 1
 
+        while j >= 0 and array[i] < array[j]:
+            array[i], array[j] = array[j], array[i]
+            j -= 1
+            i -= 1
 
-def shell_sort(n: int, array: list) -> list:
     return array
 
 
