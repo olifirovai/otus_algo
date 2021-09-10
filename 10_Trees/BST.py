@@ -31,30 +31,35 @@ class Node:
                 return f'{search_value} is not in a Tree'
             return self.right.search(search_value)
 
-    def remove(self, remove_value):
+    def remove(self, root, remove_value):
         if self.value == remove_value:
-            if self.right and self.left:
-                last_right_in_left = self.left
-                while last_right_in_left.right:
-                    last_right_in_left = last_right_in_left.right
+            if not self.left:
+                temp = self.right
+                root = Node(self.right.value, self.right.left,
+                            self.right.right)
+                self.value = root.value
+                root.right = None
+                return
+            elif not self.right:
+                pass
 
-                last_right_in_left.right, last_right_in_left.left, self.right, self.left = self.right, self.left, None, last_right_in_left.left
+            root = Node(self.value, self.left, self.right)
+            # the biggest in the left subtree
+            last_right_in_left = root.left
 
-            elif self.left is None:
-                temp_right = self.right
-            elif self.right is None:
-                temp_right = self.right
-            else:
-                temp_left = self.left
+            while last_right_in_left.right:
+                last_right_in_left = last_right_in_left.right
+            return root.remove(last_right_in_left, remove_value)
+
 
         elif self.value > remove_value:
             if self.left is None:
                 return f'{remove_value} is not in a Tree'
-            return self.left.remove(remove_value)
+            return self.left.remove(root, remove_value)
         else:
             if self.right is None:
                 return f'{remove_value} is not in a Tree'
-            return self.right.remove(remove_value)
+            return self.right.remove(root, remove_value)
 
     def print_tree(self):
         if self.left:
@@ -87,7 +92,7 @@ if __name__ == "__main__":
     # print(check_if_bst(root))
     print(root.search(8))
     print(root.search(16))
-    print(root.remove(8))
-    print(root.remove(16))
+    print(root.remove(root, 8))
+    print(root.remove(root, 16))
 
     root.print_tree()
