@@ -1,3 +1,4 @@
+
 def bubble_sort(n: int, array: list) -> list:
     for i in range(n - 1):
         for j in range(n - 1 - i):

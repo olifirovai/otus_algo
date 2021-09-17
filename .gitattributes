@@ -1,0 +1,6 @@
+*.in filter=lfs diff=lfs merge=lfs -text
+*.out filter=lfs diff=lfs merge=lfs -text
+*.шт filter=lfs diff=lfs merge=lfs -text
+*.шin filter=lfs diff=lfs merge=lfs -text
+*.Ñout filter=lfs diff=lfs merge=lfs -text
+*.psd filter=lfs diff=lfs merge=lfs -text

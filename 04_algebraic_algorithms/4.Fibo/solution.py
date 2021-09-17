@@ -1,51 +1,4 @@
-import datetime as dt
-import os
-from decimal import Decimal, ROUND_FLOOR, InvalidOperation
-
-from natsort import os_sorted
-from termcolor import colored
-
-TEST_PATH = f'{os.getcwd()}\\tests'
-
-
-# find all files with in and out data
-def find_test_cases():
-    test_in = []
-    test_out = []
-
-    filenames = os_sorted(os.listdir(TEST_PATH))
-    for filename in filenames:
-        if filename.endswith('in'):
-            test_in.append(filename)
-        elif filename.endswith('out'):
-            test_out.append(filename)
-    return test_in, test_out
-
-
-def make_tests(test_in: list, test_out: list) -> None:
-    for one_case in range(len(test_in)):
-        answer = int(
-            open(f'{TEST_PATH}\\{test_out[one_case]}', "r").read().strip())
-        data = int(
-            open(f'{TEST_PATH}\\{test_in[one_case]}', "r").read().strip())
-
-        start_time = dt.datetime.now()
-
-        # here the main function
-        result = golden_ratio(data)
-
-        func_time = (dt.datetime.now() - start_time).total_seconds() * 1000
-        output_text = f'{test_in[one_case][:-3]} run with {func_time} ms, ' \
-                      f'finished with {result == answer} result'
-        if result == answer:
-            print(colored(output_text, 'green'))
-
-        else:
-            print(f'data {data}')
-            print(f'my result {result}')
-            print(f'answer {answer}')
-            print(colored(output_text, 'red'))
-        print('----------------------------------------------------')
+from decimal import (Decimal, ROUND_FLOOR, InvalidOperation, Overflow)
 
 
 def fib_recursive(number: int) -> int:
@@ -64,13 +17,28 @@ def golden_ratio(number: int) -> int:
         fibonacci = float(
             Decimal(fibonacci).quantize(Decimal("1."), rounding=ROUND_FLOOR))
         return int(fibonacci)
-    except InvalidOperation:
+    except (InvalidOperation, Overflow):
         pass
 
-def main():
-    test_in, test_out = find_test_cases()
-    make_tests(test_in, test_out)
+
+def fib_iteration(number: int) -> int:
+    fib_num = 0
+    if number < 2:
+        fib_num = number
+        return fib_num
+
+    i, first_number, second_number = 1, 1, 1
+
+    while i < number:
+        if i <= 1:
+            fib_num = i
+        else:
+            fib_num = first_number + second_number
+            first_number = second_number
+            second_number = fib_num
+        i = i + 1
+    return fib_num
 
 
-if __name__ == '__main__':
-    main()
+def fib_matrix(number: int) -> int:
+    pass
