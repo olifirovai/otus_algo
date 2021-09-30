@@ -5,10 +5,10 @@ import os
 from natsort import os_sorted
 from termcolor import colored
 
-from solution import (bubble_sort, selection_sort, heap_sort, heapify,  # noqa
-                      insertion_sort, shell_sort)  # noqa
+from solution import *  # noqa
 
-LENGTH_LIST = {'0': 1, '1': 10, '2': 100, '3': 1000, '4': 10000, '5': 100000, '6': 1000000, '7': 10000000}
+LENGTH_LIST = {'0': 1, '1': 10, '2': 100, '3': 1000, '4': 10000, '5': 100000,
+               '6': 1000000, '7': 10000000}
 TEST_PATH = f'{os.getcwd()}\\tests'
 FUNC_DICT = {'bubble_sort': 'Bubble sort',
              'selection_sort': 'Selection sort',
@@ -38,7 +38,7 @@ def make_tests(test_in: list, test_out: list) -> None:
         create_dict_txt(test_in, FUNC_DICT)
 
     for func in FUNC_DICT.keys():
-        if func != 'bubble_sort':
+        if func != 'shell_sort':
             continue
         print(
             colored(f'Tests with function {func}', 'magenta', attrs=['bold']))
@@ -56,7 +56,7 @@ def make_tests(test_in: list, test_out: list) -> None:
             with open(f'{TEST_PATH}\\{test_out[one_case]}', "r") as test_file:
                 for line in test_file:
                     answer = [int(x) for x in line.split()]
-            if n > 100000:
+            if n >= 10000000:
                 continue
             start_time = dt.datetime.now()
 
@@ -73,6 +73,9 @@ def make_tests(test_in: list, test_out: list) -> None:
                 print(colored(output_text, 'green'))
 
             else:
+                print(f'data {array[:100]}')
+                print(f'my result {result[:100]}')
+                print(f'answer    {answer[:100]}')
                 print(colored(output_text, 'red'))
             print('----------------------------------------------------')
     print_table_readme('result_dict.txt')

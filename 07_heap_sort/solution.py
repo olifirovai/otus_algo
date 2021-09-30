@@ -1,4 +1,3 @@
-
 def bubble_sort(n: int, array: list) -> list:
     for i in range(n - 1):
         for j in range(n - 1 - i):
@@ -32,6 +31,20 @@ def insertion_sort(n: int, array: list) -> list:
 
 
 def shell_sort(n: int, array: list) -> list:
+    gap = n // 2
+
+    while gap > 0:
+
+        for i in range(gap, n):
+            temp = array[i]
+            j = i
+
+            while j >= gap and array[j - gap] > temp:
+                array[j] = array[j - gap]
+                j -= gap
+            array[j] = temp
+        gap //= 2
+
     return array
 
 
