@@ -24,9 +24,8 @@
 
 |Test №|Length Array|Merge sort|Merge & Quick sort|Counting sort|Radix sort|Bucket sort|
 |---|---|---|---|---|---|---|
-|0|10|0.0 ms|1.001 ms|no time ms|1.001 ms|no time ms|
-|1|1000|4.002999999999999 ms|4.005 ms|no time ms|2.003 ms|no time ms|
-|2|100000|541.492 ms|535.4870000000001 ms|no time ms|169.155 ms|no time ms|
-|3|1000000|6191.5019999999995 ms|6141.098 ms|no time ms|1687.637 ms|no time ms|
-|4|10000000|70891.803 ms|70952.433 ms|no time ms|17702.394 ms|no time ms|
-|5|100000000|no time ms|no time ms|no time ms|no time ms|no time ms|
+|0|10|0.0 ms|140.76500000000001 ms|130.446 ms|144.798 ms|132.166 ms|
+|1|1000|0.0 ms|30.534 ms|28.535999999999998 ms|32.742 ms|30.607 ms|
+|2|100000|433.09999999999997 ms|400.28000000000003 ms|132.775 ms|171.37199999999999 ms|140.344 ms|
+|3|1000000|4891.759 ms|4525.594 ms|1225.8960000000002 ms|1672.654 ms|1220.92 ms|
+|4|10000000|53592.787000000004 ms|52026.578 ms|12727.329 ms|17461.295 ms|12824.964 ms|

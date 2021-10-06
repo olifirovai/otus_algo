@@ -6,8 +6,6 @@ from termcolor import colored
 from solution import *  # noqa
 from tools import *
 
-AMOUNT_TESTS = 3
-
 
 # find all files with in and out data
 def find_test_cases():
@@ -33,7 +31,7 @@ def make_tests(test_in: list, test_out: list) -> None:
             colored(f'Tests with function {func}', 'magenta', attrs=['bold']))
         print('----------------------------------------------------')
 
-        for one_case in range(AMOUNT_TESTS):
+        for one_case in range(len(test_in)):
             length = LENGTH_LIST[f'{one_case}']
             # if length != 100000000:
             #     continue
@@ -62,8 +60,8 @@ def make_tests(test_in: list, test_out: list) -> None:
 
 
 def main():
-    # test_in, test_out = find_test_cases()
-    # make_tests(test_in, test_out)
+    test_in, test_out = find_test_cases()
+    make_tests(test_in, test_out)
     print_table_readme('result_dict.txt', )
 
 
