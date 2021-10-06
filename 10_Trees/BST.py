@@ -94,5 +94,6 @@ if __name__ == "__main__":
     print(root.search(16))
     print(root.remove(root, 8))
     print(root.remove(root, 16))
+    print(root.remove(root, 10))
 
-    # root.print_tree()
+    root.print_tree()

@@ -1,5 +1,4 @@
 import random
-import struct
 
 from test import (find_test_cases, )
 from tools import *
