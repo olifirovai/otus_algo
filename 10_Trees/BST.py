@@ -33,7 +33,7 @@ class Node:
 
     def remove(self, root, remove_value):
 
-        if self.value == remove_value:
+        if remove_value == self.value:
             if not self.left:
                 temp = self.right
                 self.right = None
@@ -43,16 +43,13 @@ class Node:
                 self.left = None
                 return temp
 
-            root = Node(self.value, self.left, self.right)
             # the biggest in the left subtree
-            last_right_in_left = root.left
-
-            while last_right_in_left.right:
-                last_right_in_left = last_right_in_left.right
-            return root.remove(last_right_in_left, remove_value)
+            last_right_in_left = self.left.find_max_in_left()
+            self.value = last_right_in_left.value
+            return self.remove(last_right_in_left, self.value)
 
 
-        elif self.value > remove_value:
+        elif remove_value < self.value:
             if self.left is None:
                 return f'{remove_value} is not in a Tree'
             self.left = self.left.remove(root, remove_value)
@@ -62,6 +59,12 @@ class Node:
             self.right = self.right.remove(root, remove_value)
 
         return self
+
+    def find_max_in_left(self):
+        current = self
+        while self.right:
+            current = self.right
+        return current
 
     def print_tree(self):
         if self.left:
@@ -85,15 +88,15 @@ def check_if_bst(root):
 
 
 if __name__ == "__main__":
-    root = Node(50)
+    root = Node(59)
     # number_list = list(set(round(random.random() * 100) for _ in range(20)))
-    number_list = [3, 37, 38, 71, 8, 9, 10, 73, ]
+    number_list = [45,75,40,51,71,77,35,42,47,53,41,43,46,49,52,55]
     for number in number_list:
         root.insert(number)
     print(check_if_bst(root))
     # print(root.search(8))
     print(root.search(16))
-    print(root.remove(root, 8))
+    print(root.remove(root, 37))
     # print(root.remove(root, 16))
     root.remove(root, 10)
 
