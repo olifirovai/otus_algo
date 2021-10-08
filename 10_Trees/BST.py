@@ -32,16 +32,16 @@ class Node:
             return self.right.search(search_value)
 
     def remove(self, root, remove_value):
+
         if self.value == remove_value:
             if not self.left:
                 temp = self.right
-                root = Node(self.right.value, self.right.left,
-                            self.right.right)
-                self.value = root.value
-                root.right = None
-                return
+                self.right = None
+                return temp
             elif not self.right:
-                pass
+                temp = self.left
+                self.left = None
+                return temp
 
             root = Node(self.value, self.left, self.right)
             # the biggest in the left subtree
@@ -55,11 +55,13 @@ class Node:
         elif self.value > remove_value:
             if self.left is None:
                 return f'{remove_value} is not in a Tree'
-            return self.left.remove(root, remove_value)
+            self.left = self.left.remove(root, remove_value)
         else:
             if self.right is None:
                 return f'{remove_value} is not in a Tree'
-            return self.right.remove(root, remove_value)
+            self.right = self.right.remove(root, remove_value)
+
+        return self
 
     def print_tree(self):
         if self.left:
@@ -85,15 +87,14 @@ def check_if_bst(root):
 if __name__ == "__main__":
     root = Node(50)
     # number_list = list(set(round(random.random() * 100) for _ in range(20)))
-    number_list = [3, 37, 38, 71, 8, 9, 10, 73, 45, 49, 82, 51, 23, 25, 91, 30,
-                   63]
+    number_list = [3, 37, 38, 71, 8, 9, 10, 73, ]
     for number in number_list:
         root.insert(number)
-    # print(check_if_bst(root))
-    print(root.search(8))
+    print(check_if_bst(root))
+    # print(root.search(8))
     print(root.search(16))
     print(root.remove(root, 8))
-    print(root.remove(root, 16))
-    print(root.remove(root, 10))
+    # print(root.remove(root, 16))
+    root.remove(root, 10)
 
     root.print_tree()
