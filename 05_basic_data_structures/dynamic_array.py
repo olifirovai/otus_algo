@@ -20,11 +20,11 @@ class DynamicArray(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def put_at(self, item, index: int) -> None:
+    def put_at(self, item, index) -> None:
         pass
 
     @abstractmethod
-    def delete(self, index: int) -> None:
+    def delete(self) -> None:
         pass
 
     @abstractmethod

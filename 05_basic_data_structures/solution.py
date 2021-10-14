@@ -17,19 +17,45 @@ class SingleArray(DynamicArray):
         return self.size() == 0
 
     def put(self, item) -> None:
-        self.resize()
+        self._resize()
         self.array[self.size() - 1] = item
 
-    def put_at(self, item, index: int) -> None:
-        pass
+    def put_at(self, item, index) -> None:
+        if index < 0:
+            index = 0
+            self._resize()
+            self.array = self.array[self.size() - 1] + self.array[:-1]
+            self.array[index] = item
 
-    def delete(self, index: int) -> None:
-        pass
+        elif index >= self.size():
+            self.put(item)
 
-    def delete_at(self, index: int) -> None:
-        pass
+        else:
+            self.put(item)
+            new_el_array = list(self.array[index])
+            self.array = self.array[:index] + new_el_array + self.array[
+                                                             index:-1]
 
-    def resize(self) -> None:
+    def delete(self) -> None:
+        if self.is_empty():
+            return None
+        item = self.array[self.size() - 1]
+        self.array = self.array[:-1]
+        return item
+
+    def delete_at(self, index: int):
+        if self.is_empty():
+            return None
+        if index < 0 or index >= self.size():
+            return IndexError(f'{index} is out of bounds')
+        if index == self.size():
+            return self.delete()
+        item = self.array[index]
+        self.array = self.array[:index] + self.array[index + 1:]
+
+        return item
+
+    def _resize(self) -> None:
         new_array = [0] * (self.size() + 1)
         for i in range(self.size()):
             new_array[i] = self.array[i]
@@ -55,20 +81,20 @@ class VectorArray(DynamicArray):
 
     def put(self, item) -> None:
         if self.size() == len(self.array):
-            self.resize()
+            self._resize()
         self.array[self.size()] = item
         self.cur_size += 1
 
-    def put_at(self, item, index: int) -> None:
+    def put_at(self, item, index) -> None:
         pass
 
-    def delete(self, index: int) -> None:
+    def delete(self) -> None:
         pass
 
     def delete_at(self, index: int) -> None:
         pass
 
-    def resize(self) -> None:
+    def _resize(self) -> None:
         new_array = [0] * (self.size() + self.capacity)
         for i in range(self.size()):
             new_array[i] = self.array[i]
@@ -97,10 +123,10 @@ class FactorArray(DynamicArray):
         self.array[self.size()] = item
         self.cur_size += 1
 
-    def put_at(self, item, index: int) -> None:
+    def put_at(self, item) -> None:
         pass
 
-    def delete(self, index: int) -> None:
+    def delete(self) -> None:
         pass
 
     def delete_at(self, index: int) -> None:
@@ -132,14 +158,14 @@ class MatrixArray(DynamicArray):
     def put(self, item) -> None:
         pass
 
-    def put_at(self, item, index: int) -> None:
+    def put_at(self, item) -> None:
         pass
 
-    def delete(self, index: int) -> None:
+    def delete(self) -> None:
         pass
 
     def delete_at(self, index: int) -> None:
         pass
 
-    def resize(self) -> None:
+    def _resize(self) -> None:
         pass
