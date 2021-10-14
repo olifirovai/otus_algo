@@ -24,7 +24,7 @@ def load_data_txt(one_case, func_dict, func, func_time):
         s.write(json.dumps(result_dict))
 
 
-def print_table_readme(file):
+def print_table_readme(file, test_amount):
     with open(file, 'r') as f:
         data = f.read()
         result_dict = json.loads(data)
@@ -38,7 +38,7 @@ def print_table_readme(file):
     print(header)
     print(header_line)
 
-    for test in range(9):
+    for test in range(test_amount):
         line = f'|{test}'
         for sort in list_sort:
             time = result_dict[sort][str(test)]

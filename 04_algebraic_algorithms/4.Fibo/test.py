@@ -3,7 +3,8 @@ import os
 import importlib
 from natsort import os_sorted
 from termcolor import colored
-from solution import (fib_recursive, golden_ratio, fib_iteration, fib_matrix)  # noqa
+from solution import (fib_recursive, golden_ratio, fib_iteration,
+                      fib_matrix)  # noqa
 
 tools = importlib.import_module('04_algebraic_algorithms.tools')
 
@@ -33,15 +34,10 @@ def make_tests(test_in: list, test_out: list) -> None:
         tools.create_dict_txt(test_in, FUNC_DICT)
 
     for func in FUNC_DICT.keys():
-        if func != 'golden_ratio':
-            continue
-        # if func == 'fib_matrix' or func =='fib_recursive':
-        #     continue
-        print(colored(f'Tests with function {func}', 'magenta', attrs=['bold']))
+        print(
+            colored(f'Tests with function {func}', 'magenta', attrs=['bold']))
 
         for one_case in range(13):
-            if one_case !=8:
-                continue
             data = int(open(f'{TEST_PATH}\\{test_in[one_case]}', "r").read())
             answer = int(
                 open(f'{TEST_PATH}\\{test_out[one_case]}', "r").read().strip())
@@ -69,7 +65,7 @@ def make_tests(test_in: list, test_out: list) -> None:
 def main():
     test_in, test_out = find_test_cases()
     make_tests(test_in, test_out)
-    tools.print_table_readme('result_dict.txt', )
+    tools.print_table_readme('result_dict.txt', len(test_in))
 
 
 if __name__ == '__main__':

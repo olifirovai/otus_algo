@@ -63,7 +63,7 @@ def make_tests(test_in: list, test_out: list) -> None:
 def main():
     test_in, test_out = find_test_cases()
     make_tests(test_in, test_out)
-    tools.print_table_readme('result_dict.txt', )
+    tools.print_table_readme('result_dict.txt', len(test_in))
 
 if __name__ == '__main__':
     main()

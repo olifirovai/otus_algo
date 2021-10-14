@@ -3,16 +3,12 @@ import os
 import importlib
 from natsort import os_sorted
 from termcolor import colored
-from solution import (fib_recursive, golden_ratio, fib_iteration, fib_matrix)  # noqa
+from solution import (eratosthenes, )  # noqa
 
 tools = importlib.import_module('04_algebraic_algorithms.tools')
 
 TEST_PATH = f'{os.getcwd()}\\tests'
-
-FUNC_DICT = {'fib_recursive': 'Recursion',
-             'golden_ratio': 'Golden ratio',
-             'fib_iteration': 'Iteration',
-             'fib_matrix': 'Matrix exponentiation'}
+FUNC_DICT = {'eratosthenes': 'Sieve of Eratosthenes N Log Log N', }
 
 
 # find all files with in and out data
@@ -33,9 +29,8 @@ def make_tests(test_in: list, test_out: list) -> None:
         tools.create_dict_txt(test_in, FUNC_DICT)
 
     for func in FUNC_DICT.keys():
-        if func !='golden_ratio':
-            continue
-        print(colored(f'Tests with function {func}', 'magenta', attrs=['bold']))
+        print(
+            colored(f'Tests with function {func}', 'magenta', attrs=['bold']))
 
         for one_case in range(13):
             data = int(open(f'{TEST_PATH}\\{test_in[one_case]}', "r").read())
@@ -65,7 +60,8 @@ def make_tests(test_in: list, test_out: list) -> None:
 def main():
     test_in, test_out = find_test_cases()
     make_tests(test_in, test_out)
-    tools.print_table_readme('result_dict.txt', )
+    tools.print_table_readme('result_dict.txt', len(test_in))
+
 
 if __name__ == '__main__':
     main()
