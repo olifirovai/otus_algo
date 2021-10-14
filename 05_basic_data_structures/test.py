@@ -11,6 +11,8 @@ CLASS_DICT = {'SingleArray': 'Single Array', 'VectorArray': 'Vector Array',
 
 def array_put_test():
     for class_name in CLASS_DICT.keys():
+        if class_name != 'SingleArray':
+            continue
         array = eval(f'{class_name}()')
         start_time = dt.datetime.now()
         for i in range(10001):
@@ -20,9 +22,25 @@ def array_put_test():
         print(f'{func_time=}')
 
 
+def array_put_at_test():
+    for class_name in CLASS_DICT.keys():
+        if class_name != 'SingleArray':
+            continue
+        array = eval(f'{class_name}()')
+        for i in range(20):
+            array.put(i)
+        start_time = dt.datetime.now()
+        for i in range(20):
+            array.put_at(i, array.size() // 2)
+            print(array.array)
+        func_time = (dt.datetime.now() - start_time).total_seconds() * 1000
+
+        print(f'{func_time=}')
+
+
 def main():
     array_put_test()
-
+    array_put_at_test()
 
 if __name__ == '__main__':
     main()

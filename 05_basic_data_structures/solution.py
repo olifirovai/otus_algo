@@ -32,7 +32,7 @@ class SingleArray(DynamicArray):
 
         else:
             self.put(item)
-            new_el_array = list(self.array[index])
+            new_el_array = [self.array[self.size()-1]]
             self.array = self.array[:index] + new_el_array + self.array[
                                                              index:-1]
 
