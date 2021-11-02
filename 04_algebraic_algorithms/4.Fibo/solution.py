@@ -40,5 +40,31 @@ def fib_iteration(number: int) -> int:
     return fib_num
 
 
+def multiply(matrix_a, matrix_b):
+    matrix_c = []
+    n = len(matrix_a)
+    for i in range(n):
+        list_1 = []
+        for j in range(n):
+            val = 0
+            for k in range(n):
+                val = val + matrix_a[i][k] * matrix_b[k][j]
+            list_1.append(val)
+        matrix_c.append(list_1)
+    return matrix_c
+
+
 def fib_matrix(number: int) -> int:
-    pass
+    if number == 0 or number == 1:
+        return number
+
+    res_matrix = [[1, 0], [0, 1]]
+    fibonacci_matrix = [[1, 1], [1, 0]]
+    pwr = number - 1
+    while pwr > 0:
+        if pwr % 2 == 1:
+            res_matrix = multiply(res_matrix, fibonacci_matrix)
+        fibonacci_matrix = multiply(fibonacci_matrix, fibonacci_matrix)
+        pwr //= 2
+
+    return res_matrix[0][0]

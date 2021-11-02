@@ -221,6 +221,7 @@ class MatrixArray(DynamicArray):
         col = self.get_column(self.cur_size)
         self.array[row][col] = item
         self.cur_size += 1
+
     # TODO put_at - incorrect; delete_at
     def put_at(self, item, index) -> None:
         if index >= self.rows * self.columns:
@@ -253,7 +254,7 @@ class MatrixArray(DynamicArray):
     def delete_at(self, index: int) -> None:
         if index >= self.cur_size or index < 0:
             return IndexError(f'{index} is out of bounds')
-        if index == self.cur_size-1:
+        if index == self.cur_size - 1:
             self.delete()
         else:
             row = self.get_row(index)

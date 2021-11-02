@@ -9,15 +9,12 @@
 4. Через возведение матрицы в степень.
 
 ### Tests Results
-
 |Test №|Recursion|Golden ratio|Iteration|Matrix exponentiation|
 |---|---|---|---|---|
 |0|0.0 ms|0.0 ms|0.0 ms|0.0 ms|
 |1|0.0 ms|0.0 ms|0.0 ms|0.0 ms|
-|2|0.0 ms|1.0 ms|0.0 ms|0.0 ms|
-|3|0.0 ms|0.0 ms|0.0 ms|0.0 ms|
+|2|0.0 ms|0.0 ms|0.0 ms|0.0 ms|
+|3|0.0 ms|1.0 ms|0.0 ms|0.0 ms|
 |4|0.0 ms|0.0 ms|0.0 ms|0.0 ms|
 |5|0.0 ms|0.0 ms|0.0 ms|0.0 ms|
 |6|0.0 ms|0.0 ms|0.0 ms|0.0 ms|
-|7|time ms|time ms|time ms|time ms|
-|8|time ms|time ms|time ms|time ms|

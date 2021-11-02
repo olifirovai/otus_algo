@@ -3,7 +3,7 @@ import os
 import importlib
 from natsort import os_sorted
 from termcolor import colored
-from solution import (fib_recursive, golden_ratio, fib_iteration,
+from solution import (fib_recursive, golden_ratio, fib_iteration, # noqa
                       fib_matrix)  # noqa
 
 tools = importlib.import_module('04_algebraic_algorithms.tools')
@@ -37,7 +37,7 @@ def make_tests(test_in: list, test_out: list) -> None:
         print(
             colored(f'Tests with function {func}', 'magenta', attrs=['bold']))
 
-        for one_case in range(13):
+        for one_case in range(7):
             data = int(open(f'{TEST_PATH}\\{test_in[one_case]}', "r").read())
             answer = int(
                 open(f'{TEST_PATH}\\{test_out[one_case]}', "r").read().strip())

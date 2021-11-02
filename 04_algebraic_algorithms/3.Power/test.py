@@ -34,7 +34,7 @@ def make_tests(test_in: list, test_out: list) -> None:
     for func in FUNC_DICT.keys():
         print(colored(f'Tests with function {func}', 'magenta', attrs=['bold']))
 
-        for one_case in range(9):
+        for one_case in range(len(test_in)):
             with open(f'{TEST_PATH}\\{test_in[one_case]}', "r") as test_file:
                 data = [float(line.rstrip('\n')) for line in test_file]
             answer = float(
