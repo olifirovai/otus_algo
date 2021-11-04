@@ -1,5 +1,3 @@
-# A simple implementation of Priority Queue
-# using Queue.
 class PriorityQueue:
     def __init__(self):
         self.queue = []
@@ -7,41 +5,29 @@ class PriorityQueue:
     def __str__(self):
         return ' '.join([str(i) for i in self.queue])
 
-    # for checking if the queue is empty
     def is_empty(self):
         return len(self.queue) == 0
 
-    # for inserting an element in the queue
-    def insert(self, data):
+    def enqueue(self, data):
         self.queue.append(data)
 
-    # for popping an element based on Priority
-    def delete(self):
-        try:
-            max = 0
-            for i in range(len(self.queue)):
-                if self.queue[i] > self.queue[max]:
-                    max = i
-            item = self.queue[max]
-            del self.queue[max]
-            return item
-        except IndexError:
-            print()
-            exit()
-
-    def enqueue(self):
-        pass
-
     def dequeue(self):
-        pass
+        if not self.is_empty():
+            high_priority = 0
+            for i in range(len(self.queue)):
+                if self.queue[i] > self.queue[high_priority]:
+                    high_priority = i
+            item = self.queue[high_priority]
+            del self.queue[high_priority]
+            return item
 
 
 if __name__ == '__main__':
-    myQueue = PriorityQueue()
-    myQueue.insert(12)
-    myQueue.insert(1)
-    myQueue.insert(14)
-    myQueue.insert(7)
-    print(myQueue)
-    while not myQueue.is_empty():
-        print(myQueue.delete())
+    my_queue = PriorityQueue()
+    my_queue.enqueue(12)
+    my_queue.enqueue(1)
+    my_queue.enqueue(14)
+    my_queue.enqueue(7)
+    print(my_queue)
+    while not my_queue.is_empty():
+        print(my_queue.dequeue())
